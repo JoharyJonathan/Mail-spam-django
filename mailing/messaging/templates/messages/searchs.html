@@ -1,0 +1,26 @@
+{% extends "messages/base.html" %}
+
+{% block title %}Search results{% endblock title %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-3">Search Results for "{{ query }}"</h1>
+        
+        {% if results %}
+            <ul class="list-group">
+                {% for message in results %}
+                    <li class="list-group-item">
+                        <strong>From:</strong> {{ message.sender.username }} <br>
+                        <strong>Subject:</strong> {{ message.subject }} <br>
+                        <strong>Message:</strong> {{ message.body | truncatechars:50 }}... <br>
+                        <strong>Date:</strong> {{ message.sent_at }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No messages found matching your search criteria.</p>
+        {% endif %}
+
+        <a href="{% url 'inbox' %}" class="btn btn-primary mt-3">Back to Inbox</a>
+    </div>
+{% endblock content %}

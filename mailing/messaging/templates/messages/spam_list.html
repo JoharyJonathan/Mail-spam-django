@@ -1,0 +1,26 @@
+{% extends "messages/base.html" %}
+
+{% block title %}Spams{% endblock title %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="mb-3">Spams List</h2>
+        
+        <ul class="list-group">
+            {% for spam in spams %}
+                <li class="list-group-item">
+                    <strong>From:</strong> {{ spam.sender }} <br>
+                    <strong>Subject:</strong> {{ spam.subject }} <br>
+                    <strong>Body:</strong> {{ spam.body | truncatechars:50 }}... <br>
+                    <strong>Sent At:</strong> {{ spam.sent_at }}
+                    <form method="post" action="{% url 'move_to_inbox' spam.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Move to Inbox</button>
+                    </form>
+                </li>
+            {% empty %}
+                <li class="list-group-item">No spam found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}

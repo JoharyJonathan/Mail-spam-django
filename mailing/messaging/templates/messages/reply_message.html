@@ -1,0 +1,22 @@
+{% extends "messages/base.html" %}
+
+{% block title %}Reply to Message{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-3">Reply to {{ recipient.username }}</h1>
+    
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="subject" class="form-label">Subject:</label>
+            <input type="text" class="form-control" id="subject" name="subject" value="{{ initial_subject }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="body" class="form-label">Message Body:</label>
+            <textarea class="form-control" id="body" name="body" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Reply</button>
+    </form>
+</div>
+{% endblock content %}
